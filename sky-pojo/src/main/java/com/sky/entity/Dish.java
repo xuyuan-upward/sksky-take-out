@@ -47,4 +47,9 @@ public class Dish implements Serializable {
 
     private Long updateUser;
 
+
+
+    public void setUpdateUser(Long updateUser) {
+        this.updateUser = updateUser;
+    }
 }
