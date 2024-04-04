@@ -65,8 +65,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         //3、返回实体对象
         return employee;
     }
+
     /**
-     *  新增员工
+     * 新增员工
+     *
      * @param employeeDTO
      */
     @Override
@@ -74,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
 
         // 进行对象的拷贝
-        BeanUtils.copyProperties(employeeDTO,employee);
+        BeanUtils.copyProperties(employeeDTO, employee);
 
         //设施账号的状态，，默认状态1表示启用 0表示锁定
         employee.setStatus(StatusConstant.ENABLE);
@@ -93,20 +95,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
 
     }
-/*
-*  分页查询
-* */
+
+    /*
+     *  分页查询
+     * */
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
-        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
-     Page<Employee> page =employeeMapper.pageQuery(employeePageQueryDTO);
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
         long total = page.getTotal();
         List<Employee> record = page.getResult();
-        return new PageResult(total,record);
+        return new PageResult(total, record);
     }
 
     /**
      * 启用和禁用员工账号
+     *
      * @param status
      * @param id
      */
@@ -120,24 +124,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * 根据员工进行查询ID
+     *
      * @param id
      * @return
      */
     @Override
     public Employee getById(Long id) {
-       Employee employee=employeeMapper.getById(id);
-       employee.setPassword("*******");
-       return employee;
+        Employee employee = employeeMapper.getById(id);
+        employee.setPassword("*******");
+        return employee;
     }
 
     /**
      * 编辑员工
+     *
      * @param employeeDTO
      */
     @Override
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO,employee);
+        BeanUtils.copyProperties(employeeDTO, employee);
         /*employee.setUpdateTime(LocalDateTime.now());
         employee.setUpdateUser(BaseContext.getCurrentId());*/
         employeeMapper.update(employee);
